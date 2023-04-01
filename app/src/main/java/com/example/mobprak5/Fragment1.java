@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.google.android.material.navigation.NavigationView;
 
@@ -74,6 +75,14 @@ public class Fragment1 extends Fragment implements NavHost{
         View view = inflater.inflate(R.layout.fragment_1, container, false);
         Button button = (Button) view.findViewById(R.id.button1);
         Button button2 = (Button) view.findViewById(R.id.button2);
+        TextView textView = view.findViewById(R.id.textView2);
+        if (savedInstanceState!=null) {
+            Navigation.findNavController(view)
+                    .getCurrentBackStackEntry()
+                    .getSavedStateHandle()
+                    .getLiveData("f2 info")
+                    .observe(getViewLifecycleOwner(), (res) -> textView.setText(res.toString()));
+        }
         Bundle b1 = new Bundle();
         b1.putString("f1text", "text from Fragment 1");
 
